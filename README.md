@@ -46,12 +46,14 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-// Crear módulo
-django-admin startproject config
-
 cd config
 python manage.py migrate
 python manage.py runserver
 
+Comandos personales:
+// Inicializa el proyecto
+django-admin startproject config
 
+// Crear módulo 
+python manage.py startapp users
 ```
