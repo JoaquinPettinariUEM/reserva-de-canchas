@@ -40,7 +40,7 @@ Un sistema básico de reservas de canchas deportivas donde:
 - Se anota a partidos
 - Modifica su perfil
 
-### Comandos
+### Comandos útiles
 ```
 python3 -m venv venv
 source venv/bin/activate
@@ -56,4 +56,7 @@ django-admin startproject config
 
 // Crear módulo 
 python manage.py startapp users
+
+// Crear superusuario
+python manage.py createsuperuser
 ```
