@@ -1,27 +1,31 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
+from .models import User
+from .serializers import UserSerializer
+from .permissions import IsAdmin, IsSelfOrAdmin
 
-class LoginView(APIView):
-    permission_classes = []
+class UserList(APIView):
+    permission_classes = [IsAdmin]
+
+    def get(self, request):
+        users = User.objects.all()
+        return Response(UserSerializer(users, many=True).data)
 
     def post(self, request):
-        email = request.data.get("email")
-        password = request.data.get("password")
+        data = request.data.copy()
 
-        user = authenticate(
-            request,
-            username=email,
-            password=password
-        )
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            data["is_club_owner"] = False
 
-        if not user:
-            return Response(
-                {"error": "Invalid credentials"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        login(request, user)
-        return Response({"message": "Login OK"})
-
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsSelfOrAdmin]
