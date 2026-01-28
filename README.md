@@ -39,3 +39,19 @@ Un sistema básico de reservas de canchas deportivas donde:
 - Ve partidos disponibles
 - Se anota a partidos
 - Modifica su perfil
+
+### Comandos
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+// Crear módulo
+django-admin startproject config
+
+cd config
+python manage.py migrate
+python manage.py runserver
+
+
+```
