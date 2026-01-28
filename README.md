@@ -11,7 +11,7 @@ Un sistema básico de reservas de canchas deportivas donde:
 
 ## 👉 Lo que NO está incluido
 
--No pagos reales
+- No pagos reales
 - No geolocalización real
 - No disponibilidad compleja tipo Google Calendar
 - No notificaciones
