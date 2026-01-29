@@ -3,6 +3,7 @@
 ### 👉 Objetivo del backend
 
 Un sistema básico de reservas de canchas deportivas donde:
+
 - Existen 3 deportes fijos: Fútbol, Tenis, Pádel
 - Hay usuarios con roles
 - Se pueden crear canchas
@@ -31,7 +32,7 @@ Un sistema básico de reservas de canchas deportivas donde:
 - Tiene canchas propias
 - Administra sus canchas
 - Puede cancelar partidos en sus canchas
-- *NO* puede borrar usuarios
+- _NO_ puede borrar usuarios
 
 ### 🧍 Jugador
 
@@ -41,6 +42,7 @@ Un sistema básico de reservas de canchas deportivas donde:
 - Modifica su perfil
 
 ### Comandos útiles
+
 ```
 python3 -m venv venv
 source venv/bin/activate
@@ -54,37 +56,10 @@ Comandos personales:
 // Inicializa el proyecto
 django-admin startproject config
 
-// Crear módulo 
+// Crear módulo
 python manage.py startapp users
 
 // Crear superusuario
 python manage.py createsuperuser
 
 ```
-## `/api/users`
-
-| Método | Admin | Club Owner | Jugador | Anónimo | Notas |
-|------|------|-----------|--------|--------|------|
-| GET | ✅ | ❌ | ❌ | ❌ | Lista todos los usuarios |
-| POST | ✅ | ✅ | ✅ | ✅ | Solo admin setea `is_club_owner` |
-
----
-
-## `/api/users/:id`
-
-| Método | Admin | Club Owner | Jugador | Anónimo | Notas |
-|------|------|-----------|--------|--------|------|
-| GET | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Consulta por ID |
-| PUT | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Edición |
-| PATCH | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Edición parcial |
-| DELETE | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Eliminación |
-
----
-
-
-
-
-
-
-
-
