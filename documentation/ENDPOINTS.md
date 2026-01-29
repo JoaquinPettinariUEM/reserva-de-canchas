@@ -1,4 +1,3 @@
-```
 ## `/api/users`
 
 | Método | Admin | Club Owner | Jugador | Anónimo | Notas |
@@ -13,9 +12,25 @@
 | Método | Admin | Club Owner | Jugador | Anónimo | Notas |
 |------|------|-----------|--------|--------|------|
 | GET | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Consulta por ID |
-| PUT | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Edición |
 | PATCH | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Edición parcial |
 | DELETE | ✅ | ⚠️ solo él mismo | ⚠️ solo él mismo | ❌ | Eliminación |
 
 ---
-```
+
+### `/api/courts`
+
+| Método | Admin | Club Owner | Jugador | Descripción |
+|------|------|------------|---------|-------------|
+| GET  | ✅ | ✅ (solo propias) | ❌ | Lista de canchas |
+| POST | ✅ | ✅ (propias) | ❌ | Crear cancha |
+
+---
+
+### `api/courts/:id`
+
+| Método      | Admin | Club Owner       | Jugador | Descripción     |
+| ----------- | ----- | ---------------- | ------- | --------------- |
+| GET         | ✅     | ✅ (solo propias) | ❌       | Obtener cancha  |
+| PATCH       | ✅     | ✅ (solo propias) | ❌       | Editar cancha   |
+| DELETE      | ✅     | ✅ (solo propias) | ❌       | Eliminar cancha |
+
