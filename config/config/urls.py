@@ -26,7 +26,7 @@ urlpatterns = [
     path("api/users/", include("users.urls")),
     path("api/courts/", include("courts.urls")),
     path("api/matches/", include("matches.urls")),
-    path("api/play/match/", include("match_players.urls")),
+    path("api/play/", include("match_players.urls")),
     path("api/auth/token/", TokenObtainPairView.as_view(), name="token"),
     path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

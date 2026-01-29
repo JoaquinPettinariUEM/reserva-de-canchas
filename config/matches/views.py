@@ -32,12 +32,6 @@ class MatchListCreate(generics.ListCreateAPIView):
 
         serializer.save()
 
-from rest_framework import generics
-from rest_framework.exceptions import PermissionDenied
-from .models import Match
-from .serializers import MatchSerializer
-from core.permissions import ReadOnlyOrClubAdmin
-
 class MatchDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Match.objects.select_related("court")
     serializer_class = MatchSerializer
