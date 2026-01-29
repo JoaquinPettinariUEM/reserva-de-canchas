@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'courts',
+    'matches',
+    'match_players',
     'users'
 ]
 

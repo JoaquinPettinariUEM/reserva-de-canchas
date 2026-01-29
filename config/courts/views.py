@@ -1,8 +1,7 @@
-from rest_framework.response import Response
 from rest_framework import generics
 from .models import Court
 from .serializers import CourtSerializer
-from core.permissions import CanCreateCourt, IsCourtOwnerOrAdmin, IsAdmin
+from core.permissions import CanCreateCourt, IsCourtOwnerOrAdmin
 
 
 class CourtListCreate(generics.ListCreateAPIView):
