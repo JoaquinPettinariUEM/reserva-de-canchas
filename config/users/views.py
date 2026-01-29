@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status, generics
 from .models import User
 from .serializers import UserSerializer
-from .permissions import IsAdmin, IsSelfOrAdmin
+from core.permissions import IsAdmin, IsSelfOrAdmin
 
 class UserList(APIView):
     def get_permissions(self):
