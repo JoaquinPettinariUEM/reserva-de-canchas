@@ -62,4 +62,7 @@ python manage.py startapp users
 // Crear superusuario
 python manage.py createsuperuser
 
+// Correr los seeds
+python manage.py seed_all
+
 ```
