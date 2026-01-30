@@ -11,6 +11,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         data["user"] = {
             "id": getattr(user, "id", 0),
+            "username": user.username,
             "email": user.email,
             "is_club_owner": getattr(user, "is_club_owner", False),
             "is_admin": user.is_superuser,
