@@ -18,7 +18,7 @@ Un sistema básico de reservas de canchas deportivas donde:
 - No notificaciones
 - No equipos balanceados
 
-# Roles (perfectos como los planteaste)
+# Roles
 
 ### 👑 Admin
 
