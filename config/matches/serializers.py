@@ -1,11 +1,12 @@
 from rest_framework import serializers
 from matches.models import Match
 from core.serializers.court import CourtMiniSerializer
+from courts.models import Court
 
 class MatchForCourtSerializer(serializers.ModelSerializer):
     is_full = serializers.SerializerMethodField()
     is_in = serializers.SerializerMethodField()
-    court = CourtMiniSerializer(read_only=True)
+    court = CourtMiniSerializer()
 
     class Meta:
         model = Match
@@ -34,3 +35,18 @@ class MatchForCourtSerializer(serializers.ModelSerializer):
         return obj.match_players.filter(
             player=request.user
         ).exists()
+
+class MatchCreateSerializer(serializers.ModelSerializer):
+    court = serializers.PrimaryKeyRelatedField(
+        queryset=Court.objects.all()
+    )
+
+    class Meta:
+        model = Match
+        fields = (
+            "court",
+            "start_time",
+            "end_time",
+            "price",
+            "max_players",
+        )

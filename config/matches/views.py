@@ -1,12 +1,17 @@
 from rest_framework import generics, serializers
-from django.core.exceptions import PermissionDenied, SuspiciousOperation
+from django.core.exceptions import PermissionDenied
 from .models import Match
-from .serializers import MatchForCourtSerializer
+from .serializers import MatchForCourtSerializer, MatchCreateSerializer
 from core.permissions import ReadOnlyOrClubAdmin
 
 class MatchListCreate(generics.ListCreateAPIView):
     serializer_class = MatchForCourtSerializer
-    permission_classes = [ReadOnlyOrClubAdmin]
+
+    def get_serializer_class(self):  # type: ignore
+        if self.request.method == "POST":
+            return MatchCreateSerializer
+        return MatchForCourtSerializer
+
 
     def get_queryset(self): # type: ignore
         user = self.request.user
