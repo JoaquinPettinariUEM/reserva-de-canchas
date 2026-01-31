@@ -1,11 +1,15 @@
 from rest_framework import generics
 from .models import Court
-from .serializers import CourtSerializer
+from .serializers import CourtSerializer, CourtCreateSerializer
 from core.permissions import CanCreateCourt, IsCourtOwnerOrAdmin
 
 
 class CourtListCreate(generics.ListCreateAPIView):
-    serializer_class = CourtSerializer
+
+    def get_serializer_class(self):  # type: ignore
+        if self.request.method == "POST":
+            return CourtCreateSerializer
+        return CourtSerializer
 
     def get_queryset(self): # pyright: ignore[reportIncompatibleMethodOverride]
         user = self.request.user

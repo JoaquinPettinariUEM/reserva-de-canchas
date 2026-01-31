@@ -33,7 +33,6 @@ class UserList(APIView):
     def validate_password(self, value: str) -> str:
         return make_password(value)
 
-# Allow Get by Id, Delete by ID, Update by ID Only if you are admin or yourself
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsSelfOrAdmin]
     queryset = User.objects.all()

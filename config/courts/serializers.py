@@ -20,3 +20,15 @@ class CourtSerializer(serializers.ModelSerializer):
             "created_at",
             "matches",
         )
+
+class CourtCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Court
+        fields = (
+            "name",
+            "location",
+            "capacity",
+            "price_per_hour",
+            "match_duration",
+            "sport",
+        )
