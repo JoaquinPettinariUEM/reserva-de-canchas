@@ -13,7 +13,6 @@ def seed_match_players(stdout=None):
 
     created = 0
     player_index = 0
-
     for match in matches:
         max_players = match.max_players or 0
 
@@ -33,7 +32,7 @@ def seed_match_players(stdout=None):
                 created += 1
                 if stdout:
                     stdout.write(
-                        f"✅ Player {player.username} added to match {getattr(match, "id", 0)}"
+                        f"✅ Player {player.username} added to match {getattr(match, 'id', 0)}"
                     )
 
     return created
