@@ -18,6 +18,7 @@ class Court(models.Model):
         max_length=20,
         choices=Sport.choices
     )
+    name = models.CharField(max_length=255, blank=True)
     location = models.CharField(max_length=255)
     capacity = models.PositiveIntegerField()
     price_per_hour = models.DecimalField(max_digits=8, decimal_places=2)
@@ -32,4 +33,4 @@ class Court(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.sport} - {self.location}"
+        return f"{self.name} -{self.sport} - {self.location}"

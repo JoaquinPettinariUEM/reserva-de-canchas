@@ -9,4 +9,5 @@ class CourtMiniSerializer(serializers.ModelSerializer):
             "id",
             "sport",
             "location",
+            "name"
         )

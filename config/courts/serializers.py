@@ -11,6 +11,7 @@ class CourtSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "owner",
+            "name",
             "sport",
             "location",
             "capacity",
