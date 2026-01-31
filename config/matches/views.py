@@ -1,11 +1,11 @@
-from rest_framework import generics
-from django.core.exceptions import PermissionDenied
+from rest_framework import generics, serializers
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from .models import Match
-from .serializers import MatchSerializer
+from .serializers import MatchForCourtSerializer
 from core.permissions import ReadOnlyOrClubAdmin
 
 class MatchListCreate(generics.ListCreateAPIView):
-    serializer_class = MatchSerializer
+    serializer_class = MatchForCourtSerializer
     permission_classes = [ReadOnlyOrClubAdmin]
 
     def get_queryset(self): # type: ignore
@@ -21,8 +21,10 @@ class MatchListCreate(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         user = self.request.user
-        court = serializer.validated_data["court"]
+        court = serializer.validated_data.get("court")
 
+        if(court is None):
+            raise serializers.ValidationError("Court does not exists")
         if user.is_superuser:
             serializer.save()
             return
@@ -34,7 +36,7 @@ class MatchListCreate(generics.ListCreateAPIView):
 
 class MatchDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Match.objects.select_related("court")
-    serializer_class = MatchSerializer
+    serializer_class = MatchForCourtSerializer
     permission_classes = [ReadOnlyOrClubAdmin]
 
     def get_object(self):

@@ -2,8 +2,8 @@ from rest_framework import serializers
 from matches.models import Match
 from core.serializers.court import CourtMiniSerializer
 
-class MatchForCourtSerializer(serializers.ModelSerializer):
-    is_full = serializers.SerializerMethodField()
+# Lo tuve que mover por importación circular
+class MatchForPlayerSerializer(serializers.ModelSerializer):
     court = CourtMiniSerializer(read_only=True)
 
     class Meta:
@@ -14,12 +14,4 @@ class MatchForCourtSerializer(serializers.ModelSerializer):
             "start_time",
             "end_time",
             "price",
-            "is_full",
         )
-
-    def get_is_full(self, obj):
-        if obj.max_players is None:
-            return False
-
-        return obj.match_players.count() >= obj.max_players
-

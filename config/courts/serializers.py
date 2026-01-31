@@ -1,14 +1,21 @@
 from rest_framework import serializers
-from .models import Court
-from users.models import User
+from courts.models import Court
+from matches.serializers import MatchForCourtSerializer
+
 
 class CourtSerializer(serializers.ModelSerializer):
-    owner = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.filter(is_club_owner=True),
-        required=False
-    )
+    matches = MatchForCourtSerializer(many=True, read_only=True)
 
     class Meta:
         model = Court
-        fields = "__all__"
-        read_only_fields = ["id"]
+        fields = (
+            "id",
+            "owner",
+            "sport",
+            "location",
+            "capacity",
+            "price_per_hour",
+            "match_duration",
+            "created_at",
+            "matches",
+        )
