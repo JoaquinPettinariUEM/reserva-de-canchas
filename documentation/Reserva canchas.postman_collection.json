@@ -1,0 +1,937 @@
+{
+  "info": {
+    "_postman_id": "92c74849-a253-41f9-91fc-b372c3e959e4",
+    "name": "Reserva canchas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11464611",
+    "_collection_link": "https://go.postman.co/collection/11464611-92c74849-a253-41f9-91fc-b372c3e959e4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Restricted Admin",
+          "item": [
+            {
+              "name": "Get Users",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{API_URL}}/api/users/",
+                  "host": [
+                    "{{API_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get user",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/api/users/5",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "5"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"club1@gmail.com\",\n    \"username\": \"club1\",\n    \"document\": \"club1\",\n    \"name\": \"River\",\n    \"lastname\": \"Plate\",\n    \"password\": \"club123\",\n    \"age\": 20,\n    \"country\": \"Argentina\",\n    // This key only works on admins\n    \"is_club_owner\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/users/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"joaquinpettinari3@hotmail.com\",\n    \"username\": \"Jugador300\",\n    \"name\": \"Joaco\",\n    \"lastname\": \"Pettinari\",\n    \"age\": 28,\n    \"country\": \"Braasil\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/users/10/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "10",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/api/users/7/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "7",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login as ADMIN",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "const accessToken = responseJson.access;",
+                  "const refreshToken = responseJson.refresh;",
+                  "",
+                  "if (accessToken) {",
+                  "    pm.environment.set(\"access_token\", accessToken)",
+                  "}",
+                  "",
+                  "if (refreshToken) {",
+                  "    pm.environment.set(\"refresh_token\", refreshToken);",
+                  "}",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@hotmail.com\",\n    \"password\": \"admin123\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/auth/login/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login as Club",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "const accessToken = responseJson.access;",
+                  "const refreshToken = responseJson.refresh;",
+                  "",
+                  "if (accessToken) {",
+                  "    pm.environment.set(\"access_token\", accessToken)",
+                  "}",
+                  "",
+                  "if (refreshToken) {",
+                  "    pm.environment.set(\"refresh_token\", refreshToken);",
+                  "}",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"club1@hotmail.com\",\n    \"password\": \"joaquin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/auth/login/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login as Player",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "const accessToken = responseJson.access;",
+                  "const refreshToken = responseJson.refresh;",
+                  "",
+                  "if (accessToken) {",
+                  "    pm.environment.set(\"access_token\", accessToken)",
+                  "}",
+                  "",
+                  "if (refreshToken) {",
+                  "    pm.environment.set(\"refresh_token\", refreshToken);",
+                  "}",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"jugador@hotmail.com\",\n    \"password\": \"joaquin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/auth/login/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "var bodyToken = responseJson.access;",
+                  "",
+                  "if (bodyToken) {",
+                  "    pm.environment.set(\"access_token\", bodyToken)",
+                  "}",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/auth/token/refresh/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                "refresh",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Courts",
+      "item": [
+        {
+          "name": "Get courts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/api/courts/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "courts",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get court by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/api/courts/1/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "courts",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create court",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"owner\": 18,\n    \"name\": \"Stadio di Napoli\",\n    \"location\": \"Napoli\",\n    \"capacity\": 12,\n    \"price_per_hour\": 70,\n    \"match_duration\": 120,\n    \"sport\": \"football\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/courts/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "courts",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Authorization",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update court",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"location\": \"Buenos Aires, Argentina\",\n    \"capacity\": 14,\n    \"price_per_hour\": 90,\n    \"match_duration\": 120,\n    \"sport\": \"tennis\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/courts/2/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "courts",
+                "2",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete court",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"location\": \"Buenos Aires, Argentina\",\n    \"capacity\": 14,\n    \"price_per_hour\": 90,\n    \"match_duration\": 120,\n    \"sport\": \"tennis\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/courts/7/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "courts",
+                "7",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Matches",
+      "item": [
+        {
+          "name": "Get Matches",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/matches/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Match by ID",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/matches/3/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                "3",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Match",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"court\": 12,\n    \"start_time\": \"2026-01-30T21:00:00.767594-06:00\",\n    \"end_time\": \"2026-01-30T22:00:00.767594-06:00\",\n    \"price\": 150,\n    \"max_players\": 12\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/matches/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Authorization",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Match Copy",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"start_time\": \"2026-01-30T20:00:00.767594-06:00\",\n    \"end_time\": \"2026-01-30T20:30:00.767594-06:00\",\n    \"price\": 100,\n    \"max_players\": 14\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/matches/4/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                "4",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Authorization",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Match",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"court\": 7,\n    \"start_time\": \"2026-01-30T20:00:00.767594-06:00\",\n    \"end_time\": \"2026-01-30T20:30:00.767594-06:00\",\n    \"price\": 120,\n    \"max_players\": 12\n}"
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/matches/3/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                "3",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Authorization",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Match Players",
+      "item": [
+        {
+          "name": "Get all match",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/play/match/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "play",
+                "match",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get match by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/api/play/match/5",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "play",
+                "match",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Join match",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"match\": 16,\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/play/match/create/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "play",
+                "match",
+                "create",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete match",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/api/play/match/5/delete/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "play",
+                "match",
+                "5",
+                "delete",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ]
+}
