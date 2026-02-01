@@ -199,6 +199,12 @@ Esto evita:
 
 ---
 
+## ℹ️ Base de datos
+
+Se adopta una base de datos MqSql desde un inicio por lo que no es necesaria una migración desde SQLite a MySql
+
+---
+
 ## 🚧 Limitaciones y Posibles Mejoras
 
 ### 🧑‍🤝‍🧑 Gestión de Usuarios
