@@ -1,68 +1,59 @@
-# Scope del sistema
+[LINK AL FRONT END](https://github.com/JoaquinPettinariUEM/reservar-canchas-front)
 
-### 👉 Objetivo del backend
+# 📖 Backend – Setup desde cero (Django + Docker)
 
-Un sistema básico de reservas de canchas deportivas donde:
+Este documento explica cómo levantar el proyecto desde cero luego de clonar el repositorio.  
+Los pasos están pensados para un usuario externo que no conoce el entorno.
 
-- Existen 3 deportes fijos: Fútbol, Tenis, Pádel
-- Hay usuarios con roles
-- Se pueden crear canchas
-- Se pueden crear / unirse a partidos
-- Se controlan permisos por rol
+⚠️ **Importante:**  
+La aplicación **NO funciona si no se crea el archivo `.env` antes de ejecutar Docker Compose**.
 
-### 👉 Lo que NO está incluido
+---
 
-- No pagos reales
-- No geolocalización real
-- No disponibilidad compleja tipo Google Calendar
-- No notificaciones
-- No equipos balanceados
+## 🚀 Levantar aplicación con Docker Compose
 
-# Roles
+Este proyecto se puede levantar fácilmente usando Docker Compose, sin necesidad de instalar Python ni dependencias en tu máquina local.
 
-### 👑 Admin
+---
 
-- Control total
-- Puede crear usuarios con cualquier rol
-- Puede crear canchas de cualquier club
-- Puede borrar lo que sea
+## 📚 Requisitos
 
-### 🏟️ Club / Organización
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado en tu sistema  
+  (incluye Docker Compose).
 
-- Tiene canchas propias
-- Administra sus canchas
-- Puede cancelar partidos en sus canchas
-- _NO_ puede borrar usuarios
-
-### 🧍 Jugador
-
-- Se registra
-- Ve partidos disponibles
-- Se anota a partidos
-- Modifica su perfil
-
-### Comandos útiles
-
+Verificar instalación:
+```bash
+docker compose version
 ```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
 
-cd config
-python manage.py migrate
-python manage.py runserver
-
-Comandos personales:
-// Inicializa el proyecto
-django-admin startproject config
-
-// Crear módulo
-python manage.py startapp users
-
-// Crear superusuario
-python manage.py createsuperuser
-
-// Correr los seeds
-python manage.py seed_all
-
+## 🔧 Cómo crear tu archivo .env
+Copiá el archivo de ejemplo:
+```bash
+cp .env.copy .env
 ```
+
+Reemplaza los valores por los tuyos
+```bash
+SECRET_KEY='secret_key'
+DEBUG=1
+
+DB_NAME=reservas_canchas
+DB_USER=reservas_user
+DB_PASSWORD=password123
+DB_HOST=db
+DB_PORT=3306
+```
+
+
+## 🚀 Levantar la aplicación.
+
+Desde la raíz del proyecto (donde está docker-compose.yml), ejecuta:
+```bash
+Por primera vez usar:
+docker compose up --build
+
+Después usar:
+docker compose up
+```
+
+[Explicación del código, estructura del proyecto y conclusiones](https://github.com/JoaquinPettinariUEM/reserva-de-canchas/tree/main/documentation)
