@@ -2,6 +2,7 @@ from rest_framework import serializers
 from matches.models import Match
 from core.serializers.court import CourtMiniSerializer
 from courts.models import Court
+from django.utils import timezone
 
 class MatchForCourtSerializer(serializers.ModelSerializer):
     is_full = serializers.SerializerMethodField()
@@ -40,6 +41,22 @@ class MatchCreateSerializer(serializers.ModelSerializer):
     court = serializers.PrimaryKeyRelatedField(
         queryset=Court.objects.all()
     )
+
+    def validate(self, data):
+        start = data.get("start_time")
+        end = data.get("end_time")
+
+        if start >= end:
+            raise serializers.ValidationError(
+                "end_time must be after start_time"
+            )
+
+        if start <= timezone.now():
+            raise serializers.ValidationError(
+                "start_time must be in the future"
+            )
+
+        return data
 
     class Meta:
         model = Match
