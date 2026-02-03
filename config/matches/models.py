@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from courts.models import Court
 
 class Match(models.Model):
@@ -18,6 +17,12 @@ class Match(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["court", "start_time"],
+                name="unique_match_per_court_and_start_time"
+            )
+        ]
         ordering = ["start_time"]
         indexes = [
             models.Index(fields=["court", "start_time", "end_time"])

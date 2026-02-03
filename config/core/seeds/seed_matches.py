@@ -1,31 +1,40 @@
 from matches.models import Match
 from courts.models import Court
 from django.utils import timezone
-from datetime import timedelta
 from decimal import Decimal
+from datetime import datetime, timedelta, time
 
 
 def seed_matches(stdout=None):
     courts = Court.objects.all()
-    now = timezone.now()
+
+    base_date = timezone.localdate()
+    fixed_hour = time(18, 0)  # 18:00 exacto
 
     created = 0
 
     for i, court in enumerate(courts):
-        start_time = now + timedelta(days=i + 1, hours=18)
+        start_time = timezone.make_aware(
+            datetime.combine(
+                base_date + timedelta(days=i + 1),
+                fixed_hour
+            )
+        )
+
         duration = timedelta(minutes=court.match_duration)
 
-        match, exists = Match.objects.get_or_create(
+        match, created_flag = Match.objects.get_or_create(
             court=court,
             start_time=start_time,
-            end_time=start_time + duration,
             defaults={
+                "end_time": start_time + duration,
                 "price": Decimal(court.price_per_hour),
                 "max_players": court.capacity,
             },
         )
 
-        if exists:
+
+        if created_flag:
             created += 1
             if stdout:
                 stdout.write(f"✅ Match created: {match}")

@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import MatchPlayerCreate, MatchPlayerDelete, MatchPlayerDetail, MatchPlayerList
+from rest_framework.routers import DefaultRouter
+from .views import MatchPlayerViewSet
 
-urlpatterns = [
-    path("match/", MatchPlayerList.as_view(), name="match-player-list"),
-    path("match/<int:pk>/", MatchPlayerDetail.as_view(), name="match-player-detail"),
-    path("match/create/", MatchPlayerCreate.as_view(), name="match-player-create"),
-    path("match/<int:pk>/delete/", MatchPlayerDelete.as_view(), name="match-player-delete"),
-]
+router = DefaultRouter()
+router.register(
+    r"match",
+    MatchPlayerViewSet,
+    basename="match"
+)
+
+urlpatterns = router.urls

@@ -34,5 +34,10 @@ def seed_match_players(stdout=None):
                     stdout.write(
                         f"✅ Player {player.username} added to match {getattr(match, 'id', 0)}"
                     )
+            else:
+                if stdout:
+                    stdout.write(
+                        f"⚠️ Player {player.username} is already on the match {getattr(match, 'id', 0)}"
+                    )
 
     return created
